@@ -1,8 +1,12 @@
+using rinha_backend_api.IoC.Entities;
+using rinha_backend_api.IoC.Repositories;
+
 namespace Repositories;
 
-public class ClienteRepository {
-
-    public IEnumerable<TransacaoEntity> GetTransacoes() {
-        return new TransacaoEntity().GetTransaction();
+public class ExtratoRepository : IExtratoRepository {
+    public AccountEntity MakeTransacao()
+    {
+        return null;
     }
+
 }

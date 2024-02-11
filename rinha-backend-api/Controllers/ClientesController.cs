@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Request;
+using Controllers.Request;
 using Response;
 using Services;
+using rinha_backend_api.IoC.Services;
 
 namespace rinha_backend_api.Controllers;
 
@@ -9,13 +10,23 @@ namespace rinha_backend_api.Controllers;
 [Route("[controller]")]
 public class ClientesController : ControllerBase
 {
-    [HttpPost("{id}/transacoes")]
-    public ActionResult Crebito([FromRoute] long id, [FromBody] TransacaoRequest body)
+
+    private readonly IAccountService _accountService;
+
+    public ClientesController(IAccountService accountService)
     {
-        var transacoes = new ClienteService();
+        _accountService = accountService;
+    }
 
+    [HttpPost("{id}/transacoes")]
+    public ActionResult Crebito([FromRoute] int id, [FromBody] TransacaoRequest body)
+    {
 
-        return Ok(new { transacoes = transacoes.GetTransacoes()});
+        if(!ModelState.IsValid) {
+            return BadRequest();
+        }
+
+        return Ok(_accountService.MakeTransacao(id, body));
     }
 
     // [HttpGet("{id}/extrato")]

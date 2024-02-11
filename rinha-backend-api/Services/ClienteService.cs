@@ -1,17 +1,34 @@
-using Repositories;
+using Controllers.Request;
+using rinha_backend_api.Controllers.Request;
+using rinha_backend_api.IoC.Dtos;
+using rinha_backend_api.IoC.Repositories;
+using rinha_backend_api.IoC.Services;
 
 namespace Services;
-public class ClienteService {
-    public IEnumerable<TransacaoDTO> GetTransacoes() {
-        var clientesLs = new ClienteRepository();
+public class ClienteService : IAccountService {
 
-        var clientes = new List<TransacaoDTO>();
+    private readonly IExtratoRepository _clienteRepository;
+    private readonly ITransacaoRespository _transacaoRespository;
 
-        foreach (var item in clientesLs.GetTransacoes())
-        {
-            clientes.Add(new TransacaoDTO(item.Valor, item.Tipo, item.Descricao, new DateTime()));
+    public ClienteService(IExtratoRepository clienteRepository, ITransacaoRespository transacaoRespository)
+    {
+        _clienteRepository = clienteRepository;
+        _transacaoRespository = transacaoRespository;
+    }
+
+    public AccountDTO MakeTransacao(int userId, TransacaoRequest request) {
+
+
+        if(Enum.TryParse(request.TipoTransacao, out TipoTransacao tipoTransacao)) {
+            var accountResult = _transacaoRespository.MakeTransacao(userId, tipoTransacao, request.Valor);
+
+            return new AccountDTO {
+                Limite = accountResult.Limite,
+                Saldo = accountResult.Saldo
+            };
         }
 
-        return clientes;
+        return null;
+
     }
 }
