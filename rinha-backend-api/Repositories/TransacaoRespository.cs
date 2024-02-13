@@ -13,13 +13,36 @@ namespace rinha_backend_api.Repositories
             _context = context;
         }
 
-        public AccountEntity MakeTransacao(int userId, TipoTransacao tipoTransacao, long valor)
+        public IEnumerable<TransactionEntity> List(int userId)
         {
-            var account = _context.accounts.FirstOrDefault(x => x.UserId == userId);
+            return _context.transactions.Where(x => x.UserId == userId);
+        }
 
-            account.MakeTransacao(tipoTransacao, valor);
+        public TransactionEntity MakeTransacao(int userId, TipoTransacao tipoTransacao, long valor)
+        {
 
-            return account;
+            if(_context.transactions == null) {
+                _context.transactions = new List<TransactionEntity>(); 
+            }
+
+            var transaction = _context.transactions.FirstOrDefault(x => x.UserId == userId);
+
+            transaction = new TransactionEntity {
+                Descricao = "",
+                RealizadaEm = new DateTime(),
+                Tipo = tipoTransacao,
+                Valor = valor,
+                UserId = userId,
+            };
+
+            var transactions = new List<TransactionEntity>();
+
+            transactions.AddRange(_context.transactions);
+            transactions.Add(transaction);
+            
+            _context.transactions = transactions;
+
+            return transaction;
         }
     }
 }

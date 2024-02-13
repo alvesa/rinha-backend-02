@@ -3,6 +3,7 @@ using Controllers.Request;
 using Response;
 using Services;
 using rinha_backend_api.IoC.Services;
+using rinha_backend_api.Controllers.Response;
 
 namespace rinha_backend_api.Controllers;
 
@@ -12,10 +13,12 @@ public class ClientesController : ControllerBase
 {
 
     private readonly IAccountService _accountService;
+    private readonly IExtratoService _extratoService;
 
-    public ClientesController(IAccountService accountService)
+    public ClientesController(IAccountService accountService, IExtratoService extratoService)
     {
         _accountService = accountService;
+        _extratoService = extratoService;
     }
 
     [HttpPost("{id}/transacoes")]
@@ -29,10 +32,9 @@ public class ClientesController : ControllerBase
         return Ok(_accountService.MakeTransacao(id, body));
     }
 
-    // [HttpGet("{id}/extrato")]
-    // public ActionResult<ExtratoResponse> Extrato([FromQuery] string Id)
-    // {
-    //     var extrato = new ExtratoResponse();
-    //     return Ok(extrato);
-    // }
+    [HttpGet("{id}/extrato")]
+    public ActionResult<ExtratoResponse> Extrato([FromRoute] int Id)
+    {
+        return Ok(_extratoService.List(Id));
+    }
 }

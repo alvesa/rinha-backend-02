@@ -5,6 +5,7 @@ namespace rinha_backend_api.Repositories
     public class AccountContext
     {
         public IEnumerable<AccountEntity> accounts { get; set; }
+        public IEnumerable<TransactionEntity> transactions { get; set; }
 
         public AccountContext()
         {

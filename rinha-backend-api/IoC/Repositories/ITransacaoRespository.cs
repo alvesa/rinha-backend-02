@@ -9,6 +9,7 @@ namespace rinha_backend_api.IoC.Repositories
 {
     public interface ITransacaoRespository
     {
-        public AccountEntity MakeTransacao(int userId,TipoTransacao tipoTransacao, long valor);
+        public TransactionEntity MakeTransacao(int userId,TipoTransacao tipoTransacao, long valor);
+        public IEnumerable<TransactionEntity> List(int userId);
     }
 }
