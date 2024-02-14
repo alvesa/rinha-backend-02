@@ -1,25 +1,22 @@
+using Microsoft.EntityFrameworkCore;
 using rinha_backend_api.IoC.Entities;
 
 namespace rinha_backend_api.Repositories
 {
-    public class AccountContext
+    public class RinhaContexto : DbContext
     {
-        public IEnumerable<AccountEntity> accounts { get; set; }
-        public IEnumerable<TransactionEntity> transactions { get; set; }
+        public DbSet<ClientesEntidade> Clientes { get; set; }
+        public DbSet<TransacoesEntitidade> Transacao { get; set; }
 
-        public AccountContext()
+        public RinhaContexto(DbContextOptions<RinhaContexto> options) : base(options)
         {
-            initAccount();
         }
 
-        public void initAccount() {
-            accounts = new List<AccountEntity>(){
-                new AccountEntity(1, 100000),
-                new AccountEntity(2, 80000),
-                new AccountEntity(3, 1000000),
-                new AccountEntity(4, 10000000),
-                new AccountEntity(5, 500000),
-            };
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            // var clientes = modelBuilder.Entity<ClientesEntidade>();
+            // var transacoes = modelBuilder.Entity<TransacoesEntitidade>();
+
+            // clientes.HasMany(x => x.Transacoes);
         }
     }
 }

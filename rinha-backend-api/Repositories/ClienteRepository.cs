@@ -5,47 +5,47 @@ using rinha_backend_api.Repositories;
 
 namespace Repositories;
 
-public class ClientRepository : IClienteRepository {
+public class ClientRepositorio : IClienteRepositorio {
 
-    private readonly AccountContext _context;
-    private readonly ITransacaoRespository _transacaoRespository;
+    private readonly RinhaContexto _contexto;
+    private readonly ITransacaoRespositorio _transacaoRespositorio;
 
-    public ClientRepository(AccountContext context, ITransacaoRespository transacaoRespository)
+    public ClientRepositorio(RinhaContexto contexto, ITransacaoRespositorio transacaoRespositorio)
     {
-        _context = context;
-        _transacaoRespository = transacaoRespository;
+        _contexto = contexto;
+        _transacaoRespositorio = transacaoRespositorio;
     }
 
-    public AccountEntity MakeTransacao(int clientId, TipoTransacao tipoTransacao, long valor) {
+    public ClientesEntidade FazerTransacao(int usuarioId, TipoTransacao tipoTransacao, long valor) {
         
-        var account = _context.accounts.FirstOrDefault(x => x.UserId == clientId);
+        var conta = _contexto.Clientes.Find(usuarioId);
         
         switch (tipoTransacao)
         {
             case TipoTransacao.d:
-                if(!IsValidTransaction((account.Saldo - valor), account.Limite))
+                if(!TransacaoValida((conta.Saldo - valor), conta.Limite))
                     throw new BadHttpRequestException("Nao valido");
-                account.Saldo -= valor;
+                conta.Saldo -= valor;
                 break;
             case TipoTransacao.c:
-                account.Saldo += valor;
+                conta.Saldo += valor;
                 break;
         }
 
-        var transaction = _transacaoRespository.MakeTransacao(clientId, tipoTransacao, valor);
+        // var transaction = _transacaoRespositorio.FazerTransacao(usuarioId, tipoTransacao, valor);
 
-        account.Transactions.Add(transaction);
+        // conta.Transacoes.Add(transaction);
 
 
-        return account;
+        return conta;
     }
 
-    public bool IsValidTransaction(long saldo, long limit) {
+    public bool TransacaoValida(long saldo, long limit) {
         return !((limit * -1) > saldo);
     }
 
-    public AccountEntity List(int clientId)
+    public ClientesEntidade List(int usuarioId)
     {
-        return _context.accounts.FirstOrDefault(x => x.UserId == clientId);
+        return _contexto.Clientes.FirstOrDefault(x => x.UsuarioId == usuarioId);
     }
 }

@@ -1,19 +1,22 @@
-using rinha_backend_api.Controllers.Request;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace rinha_backend_api.IoC.Entities
 {
-    public class AccountEntity
+    [Table("clientes")]
+    public class ClientesEntidade
     {
-        public int UserId { get; set; }
+        [Key]
+        [Required]
+        [Column("usuario_id")]
+        public int UsuarioId { get; set; }
+        [Required]
+        public string Nome { get; set; }
+        [Required]
         public long Limite { get; set; }
+        [Required]
         public long Saldo { get; set; }
-        public virtual List<TransactionEntity> Transactions { get; set; } = new List<TransactionEntity>();
-
-        public AccountEntity(int userId, long limit) {
-            UserId = userId;
-            Limite = limit;
-            Saldo = 0;
-        }
+        public virtual IEnumerable<TransacoesEntitidade> Transacoes { get; set; }
     }
 
 }

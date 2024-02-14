@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Repositories;
 using rinha_backend_api.IoC.Repositories;
 using rinha_backend_api.IoC.Services;
@@ -9,11 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<IAccountService, ClienteService>();
-builder.Services.AddScoped<IExtratoService, ExtratoService>();
-builder.Services.AddScoped<IClienteRepository, ClientRepository>();
-builder.Services.AddSingleton<AccountContext>();
-builder.Services.AddScoped<ITransacaoRespository, TransacaoRespository>();
-// builder.Services.AddDbContext<>();
+builder.Services.AddScoped<IExtratoServico, ExtratoServico>();
+builder.Services.AddScoped<IClienteRepositorio, ClientRepositorio>();
+// builder.Services.AddSingleton<RinhaContexto>();
+builder.Services.AddScoped<ITransacaoRespositorio, TransacaoRespositorio>();
+builder.Services.AddDbContext<RinhaContexto>(x => x.UseNpgsql(@"Host=172.17.0.1;Database=rinha;Username=admin;Password=123"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

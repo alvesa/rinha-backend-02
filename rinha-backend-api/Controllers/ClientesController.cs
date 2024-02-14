@@ -13,27 +13,27 @@ public class ClientesController : ControllerBase
 {
 
     private readonly IAccountService _accountService;
-    private readonly IExtratoService _extratoService;
+    private readonly IExtratoServico _extratoService;
 
-    public ClientesController(IAccountService accountService, IExtratoService extratoService)
+    public ClientesController(IAccountService accountService, IExtratoServico extratoService)
     {
         _accountService = accountService;
         _extratoService = extratoService;
     }
 
     [HttpPost("{id}/transacoes")]
-    public ActionResult Crebito([FromRoute] int id, [FromBody] TransacaoRequest body)
+    public ActionResult Crebito([FromRoute] int id, [FromBody] TransacaoRequisicao body)
     {
 
         if(!ModelState.IsValid) {
             return BadRequest();
         }
 
-        return Ok(_accountService.MakeTransacao(id, body));
+        return Ok(_accountService.FazerTransacao(id, body));
     }
 
     [HttpGet("{id}/extrato")]
-    public ActionResult<ExtratoResponse> Extrato([FromRoute] int Id)
+    public ActionResult<ExtratoResposta> Extrato([FromRoute] int Id)
     {
         return Ok(_extratoService.List(Id));
     }

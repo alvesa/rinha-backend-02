@@ -6,10 +6,10 @@ using rinha_backend_api.Controllers.Request;
 
 namespace rinha_backend_api.Controllers.Response
 {
-    public class ExtratoResponse
+    public class ExtratoResposta
     {
         public SaldoResponse Saldo { get; set; }
-        public IEnumerable<UltimasTransacoesResponse> UltimasTransacoes { get; set; }
+        public IEnumerable<UltimasTransacoesResposta> UltimasTransacoes { get; set; }
     }
 
     public class SaldoResponse {
@@ -18,7 +18,7 @@ namespace rinha_backend_api.Controllers.Response
         public long Limite { get; set; }
     }
 
-    public class UltimasTransacoesResponse {
+    public class UltimasTransacoesResposta {
         public long Valor { get; set; }
         public TipoTransacao TipoTransacao { get; set; }
         public string Descricao { get; set; }

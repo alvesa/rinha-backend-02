@@ -4,7 +4,7 @@ using rinha_backend_api.Controllers.Request;
 
 namespace Controllers.Request;
 
-public record TransacaoRequest {
+public record TransacaoRequisicao {
 
     [Required(ErrorMessage = "Campo obrigatorio")]
     public long Valor { get; set; }

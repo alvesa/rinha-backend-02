@@ -1,9 +1,15 @@
-INSERT INTO CLIENTE VALUES(1, 100000, 0);
+-- Coloque scripts iniciais aqui
+CREATE TABLE clientes (usuario_id SERIAL PRIMARY KEY, nome VARCHAR NOT NULL, saldo BIGINT DEFAULT 0 NOT NULL, limite BIGINT NOT NULL)
 
-INSERT INTO CLIENTE VALUES(2, 80000, 0);
+CREATE TABLE transacoes (transacao_id SERIAL PRIMARY KEY, valor BIGINT, tipo SMALLINT, descricao VARCHAR, realizada_em DATE DEFAULT now(), usuarioId INT REFERENCES clientes(usuario_id))
 
-INSERT INTO CLIENTE VALUES(3, 1000000, 0);
-
-INSERT INTO CLIENTE VALUES(4, 10000000, 0);
-
-INSERT INTO CLIENTE VALUES(5, 500000, 0);
+DO $$
+BEGIN
+  INSERT INTO clientes (nome, limite)
+  VALUES
+    ('o barato sai caro', 1000 * 100),
+    ('zan corp ltda', 800 * 100),
+    ('les cruders', 10000 * 100),
+    ('padaria joia de cocaia', 100000 * 100),
+    ('kid mais', 5000 * 100);
+END; $$

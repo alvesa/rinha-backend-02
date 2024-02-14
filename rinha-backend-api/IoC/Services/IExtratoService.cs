@@ -6,8 +6,8 @@ using rinha_backend_api.Controllers.Response;
 
 namespace rinha_backend_api.IoC.Services
 {
-    public interface IExtratoService
+    public interface IExtratoServico
     {
-        public ExtratoResponse List(int userId);
+        public ExtratoResposta List(int userId);
     }
 }

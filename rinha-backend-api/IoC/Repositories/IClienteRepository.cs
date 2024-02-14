@@ -8,9 +8,9 @@ using rinha_backend_api.IoC.Entities;
 
 namespace rinha_backend_api.IoC.Repositories
 {
-    public interface IClienteRepository
+    public interface IClienteRepositorio
     {
-        public AccountEntity MakeTransacao(int clientId, TipoTransacao tipoTransacao, long valor);
-        public AccountEntity List(int clientId);
+        public ClientesEntidade FazerTransacao(int clientId, TipoTransacao tipoTransacao, long valor);
+        public ClientesEntidade List(int clientId);
     }
 }

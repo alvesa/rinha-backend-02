@@ -7,23 +7,23 @@ using rinha_backend_api.IoC.Services;
 namespace Services;
 public class ClienteService : IAccountService {
 
-    private readonly IClienteRepository _clienteRepository;
-    private readonly ITransacaoRespository _transacaoRespository;
+    private readonly IClienteRepositorio _clienteRepositorio;
+    private readonly ITransacaoRespositorio _transacaoRespositorio;
 
-    public ClienteService(IClienteRepository clienteRepository, ITransacaoRespository transacaoRespository)
+    public ClienteService(IClienteRepositorio clienteRepositorio, ITransacaoRespositorio transacaoRespositorio)
     {
-        _clienteRepository = clienteRepository;
-        _transacaoRespository = transacaoRespository;
+        _clienteRepositorio = clienteRepositorio;
+        _transacaoRespositorio = transacaoRespositorio;
     }
-    public AccountDTO MakeTransacao(int userId, TransacaoRequest request) {
+    public ContaDTO FazerTransacao(int usuarioId, TransacaoRequisicao requisicao) {
 
 
-        if(Enum.TryParse(request.TipoTransacao, out TipoTransacao tipoTransacao)) {
-            var accountResult = _clienteRepository.MakeTransacao(userId, tipoTransacao, request.Valor);
+        if(Enum.TryParse(requisicao.TipoTransacao, out TipoTransacao tipoTransacao)) {
+            var resultadoConta = _clienteRepositorio.FazerTransacao(usuarioId, tipoTransacao, requisicao.Valor);
 
-            return new AccountDTO {
-                Limite = accountResult.Limite,
-                Saldo = accountResult.Saldo
+            return new ContaDTO {
+                Limite = resultadoConta.Limite,
+                Saldo = resultadoConta.Saldo
             };
         }
 

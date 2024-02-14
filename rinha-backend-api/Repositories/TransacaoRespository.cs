@@ -1,46 +1,37 @@
+using System.Data.Entity;
 using rinha_backend_api.Controllers.Request;
 using rinha_backend_api.IoC.Entities;
 using rinha_backend_api.IoC.Repositories;
 
 namespace rinha_backend_api.Repositories
 {
-    public class TransacaoRespository : ITransacaoRespository
+    public class TransacaoRespositorio : ITransacaoRespositorio
     {
-        private readonly AccountContext _context;
+        private readonly RinhaContexto _contexto;
 
-        public TransacaoRespository(AccountContext context)
+        public TransacaoRespositorio(RinhaContexto contexto)
         {
-            _context = context;
+            _contexto = contexto;
         }
 
-        public IEnumerable<TransactionEntity> List(int userId)
+        public IEnumerable<TransacoesEntitidade> Lista(int userId)
         {
-            return _context.transactions.Where(x => x.UserId == userId);
+            return _contexto.Transacao.Where(x => x.UsuarioId == userId);
         }
 
-        public TransactionEntity MakeTransacao(int userId, TipoTransacao tipoTransacao, long valor)
+        public async Task<TransacoesEntitidade> FazerTransacao(int userId, TipoTransacao tipoTransacao, long valor)
         {
+            var transaction = await _contexto.Transacao.FirstOrDefaultAsync(x => x.UsuarioId == userId);
 
-            if(_context.transactions == null) {
-                _context.transactions = new List<TransactionEntity>(); 
-            }
-
-            var transaction = _context.transactions.FirstOrDefault(x => x.UserId == userId);
-
-            transaction = new TransactionEntity {
+            transaction = new TransacoesEntitidade {
                 Descricao = "",
                 RealizadaEm = new DateTime(),
                 Tipo = tipoTransacao,
                 Valor = valor,
-                UserId = userId,
+                UsuarioId = userId,
             };
 
-            var transactions = new List<TransactionEntity>();
-
-            transactions.AddRange(_context.transactions);
-            transactions.Add(transaction);
-            
-            _context.transactions = transactions;
+            _contexto.Transacao.Add(transaction);
 
             return transaction;
         }

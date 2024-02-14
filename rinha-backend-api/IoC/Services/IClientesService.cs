@@ -11,6 +11,6 @@ namespace rinha_backend_api.IoC.Services
 {
     public interface IAccountService
     {
-        public AccountDTO MakeTransacao(int userId, TransacaoRequest request);
+        public ContaDTO FazerTransacao(int userId, TransacaoRequisicao request);
     }
 }

@@ -7,9 +7,9 @@ using rinha_backend_api.IoC.Entities;
 
 namespace rinha_backend_api.IoC.Repositories
 {
-    public interface ITransacaoRespository
+    public interface ITransacaoRespositorio
     {
-        public TransactionEntity MakeTransacao(int userId,TipoTransacao tipoTransacao, long valor);
-        public IEnumerable<TransactionEntity> List(int userId);
+        public Task<TransacoesEntitidade> FazerTransacao(int usuarioId, TipoTransacao tipoTransacao, long valor);
+        public IEnumerable<TransacoesEntitidade> Lista(int userId);
     }
 }
