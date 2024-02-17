@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 using rinha_backend_api.Controllers.Request;
 
 namespace rinha_backend_api.IoC.Entities
@@ -14,12 +10,22 @@ namespace rinha_backend_api.IoC.Entities
         [Key]
         [Column("transacao_id")]
         public int TransacaoId { get; set; }
+
+        [Column("valor")]
         public long Valor { get; set; }
+
+        [Column("tipo")]
         public TipoTransacao Tipo { get; set; }
+
+        [Column("descricao")]
         public string Descricao { get; set; }
-        public DateTime RealizadaEm { get; set; }
-        [ForeignKey("usuario_id")]
-        public int UsuarioId { get; set; }
-        public virtual ClientesEntidade Account { get; set; }
+
+        [Column("realizada_em")]
+        public DateTime RealizadaEm { get; set; } = new DateTime();
+
+        [ForeignKey("cliente_id")]
+        [Column("cliente_id")]
+        public int ClienteId { get; set; }
+        public virtual ClientesEntidade Cliente { get; set; }
     }
 }

@@ -8,15 +8,22 @@ namespace rinha_backend_api.IoC.Entities
     {
         [Key]
         [Required]
-        [Column("usuario_id")]
-        public int UsuarioId { get; set; }
+        [Column("cliente_id")]
+        public int ClienteId { get; set; }
+
         [Required]
+        [Column("nome")]
         public string Nome { get; set; }
+
         [Required]
+        [Column("limite")]
         public long Limite { get; set; }
+
         [Required]
+        [Column("saldo")]
         public long Saldo { get; set; }
-        public virtual IEnumerable<TransacoesEntitidade> Transacoes { get; set; }
+
+        public virtual ICollection<TransacoesEntitidade> Transacoes { get; set; } = new List<TransacoesEntitidade>();
     }
 
 }

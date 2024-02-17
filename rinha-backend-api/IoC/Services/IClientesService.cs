@@ -1,16 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Controllers.Request;
-using Response;
 using rinha_backend_api.IoC.Dtos;
-using Services;
 
 namespace rinha_backend_api.IoC.Services
 {
-    public interface IAccountService
+    public interface IClientesServico
     {
-        public ContaDTO FazerTransacao(int userId, TransacaoRequisicao request);
+        public Task<ContaDTO> FazerTransacao(int clienteId, TransacaoRequisicao requisicao);
+    }
+
+    public class RinhaError
+    {
+        public int Code { get; set; }
+        public string Message { get; set; }
+        public string ErrorType { get; set; }
     }
 }

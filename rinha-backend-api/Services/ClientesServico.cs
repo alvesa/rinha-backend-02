@@ -5,21 +5,23 @@ using rinha_backend_api.IoC.Repositories;
 using rinha_backend_api.IoC.Services;
 
 namespace Services;
-public class ClienteService : IAccountService {
+public class ClientesServico : IClientesServico {
 
     private readonly IClienteRepositorio _clienteRepositorio;
     private readonly ITransacaoRespositorio _transacaoRespositorio;
 
-    public ClienteService(IClienteRepositorio clienteRepositorio, ITransacaoRespositorio transacaoRespositorio)
+    public ClientesServico(IClienteRepositorio clienteRepositorio, ITransacaoRespositorio transacaoRespositorio)
     {
         _clienteRepositorio = clienteRepositorio;
         _transacaoRespositorio = transacaoRespositorio;
     }
-    public ContaDTO FazerTransacao(int usuarioId, TransacaoRequisicao requisicao) {
+    public async Task<ContaDTO> FazerTransacao(int clienteId, TransacaoRequisicao requisicao) {
 
 
         if(Enum.TryParse(requisicao.TipoTransacao, out TipoTransacao tipoTransacao)) {
-            var resultadoConta = _clienteRepositorio.FazerTransacao(usuarioId, tipoTransacao, requisicao.Valor);
+            await _transacaoRespositorio.FazerTransacao(clienteId, tipoTransacao, requisicao.Descricao, requisicao.Valor);
+            
+            var resultadoConta = await _clienteRepositorio.FazerTransacao(clienteId, tipoTransacao, requisicao.Valor);
 
             return new ContaDTO {
                 Limite = resultadoConta.Limite,

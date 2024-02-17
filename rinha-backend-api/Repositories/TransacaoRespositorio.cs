@@ -1,4 +1,3 @@
-using System.Data.Entity;
 using rinha_backend_api.Controllers.Request;
 using rinha_backend_api.IoC.Entities;
 using rinha_backend_api.IoC.Repositories;
@@ -16,24 +15,21 @@ namespace rinha_backend_api.Repositories
 
         public IEnumerable<TransacoesEntitidade> Lista(int userId)
         {
-            return _contexto.Transacao.Where(x => x.UsuarioId == userId);
+            return _contexto.Transacoes.Where(x => x.ClienteId == userId);
         }
 
-        public async Task<TransacoesEntitidade> FazerTransacao(int userId, TipoTransacao tipoTransacao, long valor)
+        public async Task FazerTransacao(int userId, TipoTransacao tipoTransacao, string descricao, long valor)
         {
-            var transaction = await _contexto.Transacao.FirstOrDefaultAsync(x => x.UsuarioId == userId);
-
-            transaction = new TransacoesEntitidade {
-                Descricao = "",
-                RealizadaEm = new DateTime(),
+            var transaction = new TransacoesEntitidade {
+                Descricao = descricao,
                 Tipo = tipoTransacao,
                 Valor = valor,
-                UsuarioId = userId,
+                ClienteId = userId
             };
 
-            _contexto.Transacao.Add(transaction);
+            await _contexto.Transacoes.AddAsync(transaction);
 
-            return transaction;
+            await _contexto.SaveChangesAsync();
         }
     }
 }

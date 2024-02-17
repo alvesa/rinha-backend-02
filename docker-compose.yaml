@@ -58,7 +58,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./script.sql:/docker-entrypoint-initdb.d/script.sql
+      - ./misc/seed.sql:/docker-entrypoint-initdb.d/seed.sql
     deploy:
       resources:
         limits:

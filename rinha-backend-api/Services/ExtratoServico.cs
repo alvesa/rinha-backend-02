@@ -16,9 +16,9 @@ namespace rinha_backend_api.Services
             _clienteRepository = clienteRepositorio;
         }
 
-        public ExtratoResposta List(int usuarioId)
+        public ExtratoResposta List(int clienteId)
         {
-            var list = _transacaoRespository.Lista(usuarioId);
+            var list = _transacaoRespository.Lista(clienteId);
 
             var ultimasTransacoes = new List<UltimasTransacoesResposta>();
 
@@ -34,7 +34,7 @@ namespace rinha_backend_api.Services
                 );
             }
 
-            var account = _clienteRepository.List(usuarioId);
+            var account = _clienteRepository.List(clienteId);
 
             var result =  new ExtratoResposta {
                 UltimasTransacoes = new List<UltimasTransacoesResposta>(),
