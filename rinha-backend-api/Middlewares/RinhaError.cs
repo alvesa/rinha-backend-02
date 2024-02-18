@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace rinha_backend_api.IoC.Dtos
+namespace rinha_backend_api.Middlewares
 {
     public class RinhaError : Exception
     {

@@ -16,7 +16,7 @@ namespace rinha_backend_api.Controllers.Response
 
     public class UltimasTransacoesResposta {
         public long Valor { get; set; }
-        public TipoTransacao TipoTransacao { get; set; }
+        public char TipoTransacao { get; set; }
         public string Descricao { get; set; }
         public DateTime? Realizada_Em { get; set; }
     }

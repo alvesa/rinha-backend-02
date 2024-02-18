@@ -1,3 +1,4 @@
+using rinha_backend_api.Controllers.Request;
 using rinha_backend_api.Controllers.Response;
 using rinha_backend_api.IoC.Repositories;
 using rinha_backend_api.IoC.Services;
@@ -28,7 +29,7 @@ namespace rinha_backend_api.Services
                     new UltimasTransacoesResposta {
                         Descricao = transaction.Descricao,
                         Realizada_Em = transaction.RealizadaEm,
-                        TipoTransacao = transaction.Tipo,
+                        TipoTransacao = char.Parse(transaction.Tipo.ToString()),
                         Valor = transaction.Valor
                     }
                 );

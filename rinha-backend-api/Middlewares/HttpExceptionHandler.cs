@@ -1,5 +1,5 @@
 using System.Text.Json;
-using rinha_backend_api.IoC.Dtos;
+using rinha_backend_api.Middlewares;
 
 namespace rinha_backend_api.Filters
 {

@@ -1,8 +1,8 @@
 using System.Net;
 using rinha_backend_api.Controllers.Request;
-using rinha_backend_api.IoC.Dtos;
 using rinha_backend_api.IoC.Entities;
 using rinha_backend_api.IoC.Repositories;
+using rinha_backend_api.Middlewares;
 using rinha_backend_api.Repositories;
 
 namespace Repositories;
