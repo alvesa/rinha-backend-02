@@ -9,23 +9,8 @@ namespace rinha_backend_api.Repositories
         public DbSet<TransacoesEntitidade> Transacoes { get; set; }
 
         public RinhaContexto(DbContextOptions<RinhaContexto> options) : base(options)
-        {
-            
+        {   
         }
-
-        // protected internal virtual void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     var clientes = modelBuilder.Entity<ClientesEntidade>();
-        //     var transacoes = modelBuilder.Entity<TransacoesEntitidade>();
-
-        //     clientes.HasMany(x => x.Transacoes)
-        //         .WithOne(x => x.Cliente)
-        //         .HasForeignKey(x => x.ClienteId);
-            
-        //     transacoes.HasOne(x => x.Cliente)
-        //         .WithMany(x => x.Transacoes)
-        //         .HasForeignKey(x => x.ClienteId);
-        // }
         
     }
 }
