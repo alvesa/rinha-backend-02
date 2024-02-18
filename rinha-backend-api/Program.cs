@@ -14,7 +14,7 @@ builder.Services.AddScoped<IClientesServico, ClientesServico>();
 builder.Services.AddScoped<IExtratoServico, ExtratoServico>();
 builder.Services.AddScoped<IClienteRepositorio, ClientRepositorio>();
 builder.Services.AddScoped<ITransacaoRespositorio, TransacaoRespositorio>();
-builder.Services.AddDbContext<RinhaContexto>(x => x.UseNpgsql(@"Host=172.25.0.2:5432;Database=rinha;Username=admin;Password=123"));
+builder.Services.AddDbContext<RinhaContexto>(x => x.UseNpgsql(@"Host=db;Database=rinha;Username=admin;Password=123"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

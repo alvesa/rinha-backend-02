@@ -1,4 +1,3 @@
-using rinha_backend_api.Controllers.Request;
 using rinha_backend_api.Controllers.Response;
 using rinha_backend_api.IoC.Repositories;
 using rinha_backend_api.IoC.Services;
@@ -7,19 +6,19 @@ namespace rinha_backend_api.Services
 {
     public class ExtratoServico : IExtratoServico
     {
-        private readonly ITransacaoRespositorio _transacaoRespository;
+        private readonly ITransacaoRespositorio _transacaoRespositorio;
 
-        private readonly IClienteRepositorio _clienteRepository;
+        private readonly IClienteRepositorio _clienteRepositorio;
 
         public ExtratoServico(ITransacaoRespositorio transacaoRespositorio, IClienteRepositorio clienteRepositorio)
         {
-            _transacaoRespository = transacaoRespositorio;
-            _clienteRepository = clienteRepositorio;
+            _transacaoRespositorio = transacaoRespositorio;
+            _clienteRepositorio = clienteRepositorio;
         }
 
         public ExtratoResposta List(int clienteId)
         {
-            var list = _transacaoRespository.Lista(clienteId);
+            var list = _transacaoRespositorio.Lista(clienteId);
 
             var ultimasTransacoes = new List<UltimasTransacoesResposta>();
 
@@ -35,7 +34,7 @@ namespace rinha_backend_api.Services
                 );
             }
 
-            var conta = _clienteRepository.Lista(clienteId);
+            var conta = _clienteRepositorio.Lista(clienteId);
 
             var result =  new ExtratoResposta {
                 UltimasTransacoes = new List<UltimasTransacoesResposta>(),
