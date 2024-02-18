@@ -34,14 +34,14 @@ namespace rinha_backend_api.Services
                 );
             }
 
-            var account = _clienteRepository.List(clienteId);
+            var conta = _clienteRepository.Lista(clienteId);
 
             var result =  new ExtratoResposta {
                 UltimasTransacoes = new List<UltimasTransacoesResposta>(),
                 Saldo = new SaldoResponse {
-                    Data_Extrato = new DateTime(),
-                    Limite = account.Limite,
-                    Total = account.Saldo
+                    Data_Extrato = DateTime.UtcNow,
+                    Limite = conta.Limite,
+                    Total = conta.Saldo
                 }
             };
 

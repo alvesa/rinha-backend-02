@@ -1,14 +1,13 @@
-using System.Net;
 using System.Text.Json;
 using rinha_backend_api.IoC.Dtos;
 
 namespace rinha_backend_api.Filters
 {
-    public class HttpExceptionFilter
+    public class HttpExceptionHandler
 {
     private readonly RequestDelegate _next;
 
-    public HttpExceptionFilter(RequestDelegate next)
+    public HttpExceptionHandler(RequestDelegate next)
     {
         _next = next;
     }

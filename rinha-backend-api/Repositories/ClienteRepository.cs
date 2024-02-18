@@ -10,26 +10,21 @@ namespace Repositories;
 public class ClientRepositorio : IClienteRepositorio {
 
     private readonly RinhaContexto _contexto;
-    // private readonly ITransacaoRespositorio _transacaoRespositorio;
-
-    public ClientRepositorio(RinhaContexto contexto/*, ITransacaoRespositorio transacaoRespositorio*/)
+    
+    public ClientRepositorio(RinhaContexto contexto)
     {
         _contexto = contexto;
-        // _transacaoRespositorio = transacaoRespositorio;
     }
 
     public async Task<ClientesEntidade> FazerTransacao(int clienteId, TipoTransacao tipoTransacao, long valor) {
         
-        var conta = _contexto.Clientes.Find(clienteId);
+        var conta = Lista(clienteId);
 
-        if(conta == null)
-            throw new RinhaError(HttpStatusCode.NotFound, "Cliente nao existente");
-        
         switch (tipoTransacao)
         {
             case TipoTransacao.d:
                 if(!TransacaoValida((conta.Saldo - valor), conta.Limite))
-                    throw new RinhaError(HttpStatusCode.UnprocessableEntity, "Transacao nao valida");
+                    throw new RinhaError(HttpStatusCode.UnprocessableEntity, "Transacao nao valida devido ao limite.");
                 conta.Saldo -= valor;
                 break;
             case TipoTransacao.c:
@@ -48,8 +43,13 @@ public class ClientRepositorio : IClienteRepositorio {
         return !((limit * -1) > saldo);
     }
 
-    public ClientesEntidade List(int clienteId)
+    public ClientesEntidade Lista(int clienteId)
     {
-        return _contexto.Clientes.FirstOrDefault(x => x.ClienteId == clienteId);
+        var cliente = _contexto.Clientes.FirstOrDefault(x => x.ClienteId == clienteId);
+
+        if(cliente == null)
+            throw new RinhaError(HttpStatusCode.NotFound, "Cliente nao encontrado");
+
+        return cliente;
     }
 }

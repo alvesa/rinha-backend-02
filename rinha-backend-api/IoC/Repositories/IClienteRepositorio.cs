@@ -5,7 +5,7 @@ namespace rinha_backend_api.IoC.Repositories
 {
     public interface IClienteRepositorio
     {
-        public Task<ClientesEntidade> FazerTransacao(int clientId, TipoTransacao tipoTransacao, long valor);
-        public ClientesEntidade List(int clientId);
+        public Task<ClientesEntidade> FazerTransacao(int clienteId, TipoTransacao tipoTransacao, long valor);
+        public ClientesEntidade Lista(int clienteId);
     }
 }

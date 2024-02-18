@@ -21,7 +21,7 @@ namespace rinha_backend_api.IoC.Entities
         public string Descricao { get; set; }
 
         [Column("realizada_em")]
-        public DateTime RealizadaEm { get; set; } = new DateTime();
+        public DateTime? RealizadaEm { get; set; }
 
         [ForeignKey("cliente_id")]
         [Column("cliente_id")]
