@@ -18,7 +18,7 @@ public class ClientesServico : IClientesServico {
     public async Task<ContaDTO> FazerTransacao(int clienteId, TransacaoRequisicao requisicao) {
 
 
-        if(Enum.TryParse(requisicao.TipoTransacao, out TipoTransacao tipoTransacao)) {
+        if(Enum.TryParse(requisicao.Tipo, out TipoTransacao tipoTransacao)) {
             await _transacaoRespositorio.FazerTransacao(clienteId, tipoTransacao, requisicao.Descricao, requisicao.Valor);
             
             var resultadoConta = await _clienteRepositorio.FazerTransacao(clienteId, tipoTransacao, requisicao.Valor);

@@ -11,7 +11,7 @@ public record TransacaoRequisicao {
 
     [EnumDataType(typeof(TipoTransacao), ErrorMessage = "Tipo de trasacao nao valida")]
     [Required(ErrorMessage = "Campo obrigatorio")]
-    public string? TipoTransacao{ get; set; }
+    public string? Tipo{ get; set; }
 
     [MinLength(1, ErrorMessage = "Tamanho maximo e 1")]
     [MaxLength(10, ErrorMessage = "Tamanho maximo e 10")]
