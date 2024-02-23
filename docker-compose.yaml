@@ -15,8 +15,8 @@ services:
     # Não é necessário expor qualquer porta além da porta do load balancer,
     # mas é comum as pessoas o fazerem para testarem suas APIs e conectarem
     # ao banco de dados na fase de desenvolvimento.
-    expose:
-      - "9999"
+    # expose:
+    #   - "9999"
     ports:
       - "5000:9999"
     depends_on:
@@ -35,8 +35,8 @@ services:
       - DB_HOSTNAME=db
       - ASPNETCORE_URLS=http://+:5001;http://+:5052
       - ASPNETCORE_ENVIRONMENT=Production
-    expose:
-      - "9999"
+    # expose:
+    #   - "9999"
     ports:
       - "5001:9999"
  

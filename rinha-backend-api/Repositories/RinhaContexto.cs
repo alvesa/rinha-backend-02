@@ -9,8 +9,7 @@ namespace rinha_backend_api.Repositories
         public DbSet<TransacoesEntitidade> Transacoes { get; set; }
 
         public RinhaContexto(DbContextOptions<RinhaContexto> options) : base(options)
-        {   
+        {
         }
-        
     }
 }
