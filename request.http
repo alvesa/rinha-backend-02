@@ -1,0 +1,68 @@
+@hostname=localhost
+@port=9999
+
+GET http://{{hostname}}:{{port}}/clientes/1/extrato
+
+###
+GET http://{{hostname}}:{{port}}/clientes/6/extrato
+
+###
+POST http://{{hostname}}:{{port}}/clientes/1/transacoes
+Content-Type: application/json
+
+{
+  "valor": 10000,
+  "tipo" : "c",
+  "descricao" : "Earnings"
+}
+
+###
+POST http://{{hostname}}:{{port}}/clientes/1/transacoes
+Content-Type: application/json
+
+{
+  "valor": 9999,
+  "tipo" : "d",
+  "descricao" : "Lunch"
+}
+
+###
+POST http://{{hostname}}:{{port}}/clientes/1/transacoes
+Content-Type: application/json
+
+{
+  "valor": 100000000,
+  "tipo" : "d",
+  "descricao" : "Exp Lunch"
+}
+
+### Descrição > 10
+POST http://{{hostname}}:{{port}}/clientes/1/transacoes
+Content-Type: application/json
+
+{
+  "valor": 1000,
+  "tipo" : "d",
+  "descricao" : "Descrição maior que 10"
+}
+
+### Descrição < 1
+POST http://{{hostname}}:{{port}}/clientes/1/transacoes
+Content-Type: application/json
+
+{
+  "valor": 1000,
+  "tipo" : "d",
+  "descricao" : ""
+}
+
+
+### Cliente inexistente
+POST http://{{hostname}}:{{port}}/clientes/6/transacoes
+Content-Type: application/json
+
+{
+  "valor": 10000,
+  "tipo" : "c",
+  "descricao" : "Not exists"
+}
