@@ -6,8 +6,8 @@ export class ClientesController {
   constructor(private readonly clientesService: ClientesService) {}
 
   @Get(':id/extrato')
-  extrato(@Param('id') id: number): string {
-    return this.clientesService.extrato(id);
+  async extrato(@Param('id') id: number): Promise<any> {
+    return await this.clientesService.extrato(id);
   }
 
   @Post('transacoes')
