@@ -10,7 +10,6 @@ export class ClientesRepository extends Repository<Clientes> {
 
 export const ClienteRepositoryProvider: Provider = {
   provide: 'CLIENTE_REPOSITORY',
-  useFactory: (dataSource: DataSource) =>
-    dataSource.getRepository(Clientes),
+  useFactory: (dataSource: DataSource) => dataSource.getRepository(Clientes),
   inject: ['DATA_SOURCE'],
 };

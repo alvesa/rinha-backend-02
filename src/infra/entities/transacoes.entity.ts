@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Clientes } from './clientes.entity';
 
 export enum Tipo {
   c = 'c',
@@ -7,8 +14,7 @@ export enum Tipo {
 
 @Entity('transacoes')
 export class Transacoes extends BaseEntity {
-  @Column('transacao_id')
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ name: 'transacao_id' })
   transacaoId: number;
 
   @Column()
@@ -27,6 +33,6 @@ export class Transacoes extends BaseEntity {
   // @TableForeignKey()
   clienteId: number;
 
-  // @ManyToOne()
-  // cliente: Clientes;
+  @ManyToOne('cliente_id')
+  cliente: Clientes[];
 }

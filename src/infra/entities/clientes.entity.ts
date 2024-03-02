@@ -3,15 +3,14 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity({ name: 'clientes' })
 export class Clientes {
   @PrimaryGeneratedColumn({ name: 'cliente_id' })
-  @Column({ name: 'cliente_id' })
   clienteId: number;
 
   @Column()
   nome: string;
 
-  @Column()
-  saldo: number;
+  @Column({ type: 'bigint', default: 0 })
+  saldo: string;
 
-  @Column()
-  limite: number;
+  @Column({ type: 'bigint', default: 0 })
+  limite: string;
 }
