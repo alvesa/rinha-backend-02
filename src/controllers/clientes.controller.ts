@@ -1,5 +1,19 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { ClientesService } from 'src/services/clientes.service';
+
+export class TransacaoRequest {
+  valor: number;
+  tipo: string;
+  descricao: string;
+}
 
 @Controller('clientes')
 export class ClientesController {
@@ -7,11 +21,21 @@ export class ClientesController {
 
   @Get(':id/extrato')
   async extrato(@Param('id') id: number): Promise<any> {
+    if (!id) throw new NotFoundException();
+
     return await this.clientesService.extrato(id);
   }
 
-  @Post('transacoes')
-  transacao(): string {
-    return this.clientesService.transacao();
+  @Post(':id/transacoes')
+  async transacao(
+    @Param('id') id: number,
+    @Body() payload: TransacaoRequest,
+  ): Promise<{ limite: number; saldo: number }> {
+    if (!id) throw new NotFoundException();
+
+    if (payload.descricao.length < 1 || payload.descricao.length > 10)
+      throw new UnprocessableEntityException();
+
+    return await this.clientesService.transacao(id, payload);
   }
 }

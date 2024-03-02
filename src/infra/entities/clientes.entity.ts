@@ -8,9 +8,9 @@ export class Clientes {
   @Column()
   nome: string;
 
-  @Column({ type: 'bigint', default: 0 })
-  saldo: string;
+  @Column({ type: 'integer' })
+  saldo: number;
 
-  @Column({ type: 'bigint', default: 0 })
-  limite: string;
+  @Column({ type: 'integer' })
+  limite: number;
 }

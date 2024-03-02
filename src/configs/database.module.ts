@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Clientes } from 'src/infra/entities/clientes.entity';
+import { Transacoes } from 'src/infra/entities/transacoes.entity';
 
 @Module({
   imports: [
@@ -11,10 +12,11 @@ import { Clientes } from 'src/infra/entities/clientes.entity';
       username: 'admin',
       password: '123',
       database: 'rinha',
-      entities: [Clientes],
+      entities: [Clientes, Transacoes],
       synchronize: true,
     }),
     TypeOrmModule.forFeature([Clientes]),
+    TypeOrmModule.forFeature([Transacoes]),
   ],
   exports: [TypeOrmModule],
 })

@@ -1,11 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { Clientes } from './clientes.entity';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum Tipo {
   c = 'c',
@@ -20,19 +13,15 @@ export class Transacoes extends BaseEntity {
   @Column()
   valor: number;
 
-  @Column()
-  tipo: number;
+  @Column({ default: '' })
+  tipo: string;
 
   @Column()
   descricao: string;
 
-  @Column('realizada_em')
-  realizadaEm: Date;
+  @Column({ name: 'realizada_em', type: 'timestamp', default: new Date() })
+  realizadaEm: string;
 
-  @Column('cliente_id')
-  // @TableForeignKey()
+  @Column({ name: 'cliente_id', foreignKeyConstraintName: 'cliente_id' })
   clienteId: number;
-
-  @ManyToOne('cliente_id')
-  cliente: Clientes[];
 }
