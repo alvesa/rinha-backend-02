@@ -26,7 +26,7 @@ export class ClientesService {
       total: cliente.saldo,
     };
 
-    const ultimas = await this.transacoesRepository.findAllTransactions(id);
+    const ultimas = await this.transacoesRepository.findLastTransactions(id);
 
     result.ultimas_transacoes = [];
 

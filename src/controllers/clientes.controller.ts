@@ -5,6 +5,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  Response,
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { ClientesService } from 'src/services/clientes.service';
@@ -30,12 +31,19 @@ export class ClientesController {
   async transacao(
     @Param('id') id: number,
     @Body() payload: TransacaoRequest,
+    @Response() response,
   ): Promise<{ limite: number; saldo: number }> {
     if (!id) throw new NotFoundException();
 
-    if (payload.descricao.length < 1 || payload.descricao.length > 10)
+    if (
+      !payload.descricao ||
+      payload.descricao.length < 1 ||
+      payload.descricao.length > 10
+    )
       throw new UnprocessableEntityException();
 
-    return await this.clientesService.transacao(id, payload);
+    return response
+      .status(200)
+      .send(await this.clientesService.transacao(id, payload));
   }
 }

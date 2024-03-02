@@ -12,7 +12,13 @@ export class TransacoesRepository extends Repository<Transacoes> {
     return await this.findOne({ where: { clienteId: id } });
   }
 
-  async findAllTransactions(id: number) {
-    return await this.find({ where: { clienteId: id } });
+  async findLastTransactions(id: number) {
+    return await this.find({
+      where: { clienteId: id },
+      take: 10,
+      order: {
+        realizadaEm: 'DESC',
+      },
+    });
   }
 }
