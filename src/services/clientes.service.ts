@@ -1,4 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Clientes } from 'src/infra/entities/clientes.entity';
 import { ClientesRepository } from 'src/repositories/clientes.respository';
 
 export class SaldoResposta {
@@ -22,13 +24,15 @@ export class ExtratoResposta {
 @Injectable()
 export class ClientesService {
   constructor(
-    @Inject('CLIENTE_REPOSITORY')
+    @InjectRepository(Clientes)
     private readonly clientesRepository: ClientesRepository,
   ) {}
   async extrato(id: number): Promise<any> {
     const cliente = await this.clientesRepository.findOne({
       where: { clienteId: id },
     });
+
+    console.log(cliente);
 
     const result = new ExtratoResposta();
 
