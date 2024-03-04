@@ -17,7 +17,7 @@ export class TransacoesRepository extends Repository<Transacoes> {
       where: { clienteId: id },
       take: 10,
       order: {
-        realizadaEm: 'DESC',
+        realizadaEm: 'desc',
       },
     });
   }

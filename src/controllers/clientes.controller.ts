@@ -8,12 +8,17 @@ import {
   Response,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { ClientesService } from 'src/services/clientes.service';
+import { ClientesService } from '../domain/services/clientes.service';
 
 export class TransacaoRequest {
   valor: number;
   tipo: string;
   descricao: string;
+}
+
+export class TransacaoResponse {
+  limite: number;
+  saldo: number;
 }
 
 @Controller('clientes')
@@ -32,8 +37,10 @@ export class ClientesController {
     @Param('id') id: number,
     @Body() payload: TransacaoRequest,
     @Response() response,
-  ): Promise<{ limite: number; saldo: number }> {
+  ): Promise<TransacaoResponse> {
     if (!id) throw new NotFoundException();
+
+    if (!payload) throw new NotFoundException();
 
     if (
       !payload.descricao ||
@@ -41,6 +48,11 @@ export class ClientesController {
       payload.descricao.length > 10
     )
       throw new UnprocessableEntityException();
+
+    if (!['c', 'd'].includes(payload.tipo))
+      throw new UnprocessableEntityException();
+
+    if (!(payload.valor % 1 === 0)) throw new UnprocessableEntityException();
 
     return response
       .status(200)

@@ -3,10 +3,13 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import { TransacaoRequest } from 'src/controllers/clientes.controller';
+import {
+  TransacaoRequest,
+  TransacaoResponse,
+} from 'src/controllers/clientes.controller';
 import { Clientes } from 'src/infra/entities/clientes.entity';
-import { ClientesRepository } from 'src/repositories/clientes.respository';
-import { TransacoesRepository } from 'src/repositories/transacoes.respository';
+import { ClientesRepository } from 'src/infra/repositories/clientes.respository';
+import { TransacoesRepository } from 'src/infra/repositories/transacoes.respository';
 import { ExtratoResposta } from './dto/extrato.dto';
 
 @Injectable()
@@ -45,7 +48,7 @@ export class ClientesService {
   async transacao(
     clienteId: number,
     request: TransacaoRequest,
-  ): Promise<{ limite: number; saldo: number }> {
+  ): Promise<TransacaoResponse> {
     const cliente = await this.getClienteById(clienteId);
 
     const saldoAtual = request.valor * -1 + cliente.saldo;

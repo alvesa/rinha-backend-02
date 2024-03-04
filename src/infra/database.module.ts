@@ -14,7 +14,10 @@ import { Transacoes } from 'src/infra/entities/transacoes.entity';
       database: 'rinha',
       entities: [Clientes, Transacoes],
       synchronize: true,
-      poolSize: 200,
+      poolSize: 50,
+      extra: {
+        connectionLimit: 50,
+      },
     }),
     TypeOrmModule.forFeature([Clientes]),
     TypeOrmModule.forFeature([Transacoes]),

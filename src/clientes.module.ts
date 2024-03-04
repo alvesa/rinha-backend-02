@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ClientesService } from './services/clientes.service';
-import { DatabaseModule } from './configs/database.module';
-import { ClientesRepository } from './repositories/clientes.respository';
-import { TransacoesRepository } from './repositories/transacoes.respository';
+import { ClientesService } from './domain/services/clientes.service';
+import { DatabaseModule } from './infra/database.module';
+import { ClientesRepository } from './infra/repositories/clientes.respository';
+import { TransacoesRepository } from './infra/repositories/transacoes.respository';
 
 @Module({
   imports: [DatabaseModule],

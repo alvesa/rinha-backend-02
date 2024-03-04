@@ -39,6 +39,8 @@ services:
     #   - "9999"
     ports:
       - "5001:9999"
+    depends_on:
+      - db
  
   nginx:
     image: nginx:latest
