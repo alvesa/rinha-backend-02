@@ -70,6 +70,7 @@ export class ClientesService {
       clienteId: cliente.clienteId,
       tipo: request.tipo,
       descricao: request.descricao,
+      realizadaEm: new Date(),
     });
 
     await this.clientesRepository.save(cliente);

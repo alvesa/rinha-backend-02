@@ -8,7 +8,7 @@ export class ExtratoTransacaoResposta {
   valor: number;
   tipo: string;
   descricao: string;
-  realizada_em: string;
+  realizada_em: Date;
 }
 
 export class ExtratoResposta {

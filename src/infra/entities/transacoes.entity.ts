@@ -20,7 +20,7 @@ export class Transacoes extends BaseEntity {
   descricao: string;
 
   @Column({ name: 'realizada_em', type: 'timestamp', default: new Date() })
-  realizadaEm: string;
+  realizadaEm: Date;
 
   @Column({ name: 'cliente_id', foreignKeyConstraintName: 'cliente_id' })
   clienteId: number;
