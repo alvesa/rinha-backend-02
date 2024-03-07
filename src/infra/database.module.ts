@@ -15,9 +15,6 @@ import { Transacoes } from 'src/infra/entities/transacoes.entity';
       entities: [Clientes, Transacoes],
       synchronize: true,
       poolSize: 5,
-      // extra: {
-      //   connectionLimit: 5,
-      // },
     }),
     TypeOrmModule.forFeature([Clientes]),
     TypeOrmModule.forFeature([Transacoes]),
