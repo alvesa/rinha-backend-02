@@ -14,7 +14,7 @@ builder.Services.AddScoped<IClientesServico, ClientesServico>();
 builder.Services.AddScoped<IExtratoServico, ExtratoServico>();
 builder.Services.AddScoped<IClienteRepositorio, ClientRepositorio>();
 builder.Services.AddScoped<ITransacaoRespositorio, TransacaoRespositorio>();
-builder.Services.AddDbContextPool<RinhaContexto>(x => x.UseNpgsql(@"Host=db;Database=rinha;Username=admin;Password=123;Pooling=true;Minimum Pool Size=100;Maximum Pool Size=2000;"));
+builder.Services.AddDbContextPool<RinhaContexto>(x => x.UseNpgsql(@"Host=db;Database=rinha;Username=admin;Password=123;Pooling=true;Maximum Pool Size=5;"));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
