@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   NotFoundException,
+  BadRequestException,
   Param,
   Post,
   Response,
@@ -38,9 +39,9 @@ export class ClientesController {
     @Body() payload: TransacaoRequest,
     @Response() response,
   ): Promise<TransacaoResponse> {
-    if (!id) throw new NotFoundException();
+    if (!id) throw new UnprocessableEntityException();
 
-    if (!payload) throw new NotFoundException();
+    if (!payload) throw new UnprocessableEntityException();
 
     if (
       !payload.descricao ||
@@ -52,7 +53,8 @@ export class ClientesController {
     if (!['c', 'd'].includes(payload.tipo))
       throw new UnprocessableEntityException();
 
-    if (!(payload.valor % 1 === 0)) throw new UnprocessableEntityException();
+    if ([null, undefined].includes(payload.valor) || !(payload.valor % 1 === 0))
+      throw new UnprocessableEntityException();
 
     return response
       .status(200)
