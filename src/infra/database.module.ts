@@ -7,13 +7,13 @@ import { Transacoes } from 'src/infra/entities/transacoes.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'db',
+      host: process.env.DB_HOSTNAME,
       port: 5432,
-      username: 'admin',
-      password: '123',
-      database: 'rinha',
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_SCHEMA,
       entities: [Clientes, Transacoes],
-      synchronize: true,
+      synchronize: false,
       poolSize: 5,
     }),
     TypeOrmModule.forFeature([Clientes]),
