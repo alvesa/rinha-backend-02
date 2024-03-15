@@ -10,7 +10,7 @@ import {
 import { Clientes } from 'src/infra/entities/clientes.entity';
 import { ClientesRepository } from 'src/infra/repositories/clientes.respository';
 import { TransacoesRepository } from 'src/infra/repositories/transacoes.respository';
-import { ExtratoResposta } from './dto/extrato.dto';
+import { ExtratoResposta } from '../dto/extrato.dto';
 
 @Injectable()
 export class ClientesService {
@@ -65,7 +65,7 @@ export class ClientesService {
         break;
     }
 
-    await this.transacoesRepository.save({
+    await this.transacoesRepository.create({
       valor: request.valor,
       clienteId: cliente.clienteId,
       tipo: request.tipo,
@@ -73,7 +73,7 @@ export class ClientesService {
       realizadaEm: new Date(),
     });
 
-    await this.clientesRepository.save(cliente);
+    await this.clientesRepository.create(cliente);
 
     return {
       limite: cliente.limite,
