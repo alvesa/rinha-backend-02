@@ -1,7 +1,7 @@
 -- Coloque scripts iniciais aqui
-CREATE TABLE clientes (cliente_id SERIAL PRIMARY KEY, nome VARCHAR NOT NULL, saldo BIGINT DEFAULT 0 NOT NULL, limite BIGINT NOT NULL);
+CREATE TABLE clientes (cliente_id SERIAL PRIMARY KEY, nome VARCHAR NOT NULL, saldo INTEGER DEFAULT 0 NOT NULL, limite INTEGER NOT NULL);
 
-CREATE TABLE transacoes (transacao_id SERIAL PRIMARY KEY, valor BIGINT, tipo SMALLINT, descricao VARCHAR, realizada_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP, cliente_id INT REFERENCES clientes(cliente_id));
+CREATE TABLE transacoes (transacao_id SERIAL PRIMARY KEY, valor INTEGER, tipo CHAR, descricao VARCHAR, realizada_em TIMESTAMP, cliente_id INT REFERENCES clientes(cliente_id));
 
 DO $$
 BEGIN

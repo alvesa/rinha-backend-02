@@ -8,15 +8,17 @@ services:
     image: rinha-backend
     build: .
     hostname: api01
-    environment:
+    environment :
       - DB_HOSTNAME=db
-      - ASPNETCORE_URLS=http://+:5000;http://+:5051
-      - ASPNETCORE_ENVIRONMENT=Production
+      - NODE_ENV=production
+      - PORT=5000
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=admin
+      - POSTGRES_SCHEMA=rinha
+    
     # Não é necessário expor qualquer porta além da porta do load balancer,
     # mas é comum as pessoas o fazerem para testarem suas APIs e conectarem
     # ao banco de dados na fase de desenvolvimento.
-    # expose:
-    #   - "9999"
     ports:
       - "5000:9999"
     depends_on:
@@ -33,12 +35,15 @@ services:
     hostname: api02
     environment:
       - DB_HOSTNAME=db
-      - ASPNETCORE_URLS=http://+:5001;http://+:5052
-      - ASPNETCORE_ENVIRONMENT=Production
-    # expose:
-    #   - "9999"
+      - NODE_ENV=production
+      - PORT=5001
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=admin
+      - POSTGRES_SCHEMA=rinha
     ports:
       - "5001:9999"
+    depends_on:
+      - db
  
   nginx:
     image: nginx:latest
@@ -53,8 +58,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.4"
-          memory: "150MB"
+          cpus: "0.1"
+          memory: "100MB"
 
   db:
     image: postgres:latest
@@ -74,8 +79,8 @@ services:
           # aqui declarados é de 1.5 unidades de CPU e 550MB
           # de memória. A distribuição feita aqui é apenas
           # um exemplo – distribua como quiser.
-          cpus: "0.6"
-          memory: "300MB"
+          cpus: "0.8"
+          memory: "350MB"
 
 # O uso do modo `bridge` deve ser adequado à carga que será usada no teste.
 # A edição anterior se beneficiou do modo host pois o volume de requisições
